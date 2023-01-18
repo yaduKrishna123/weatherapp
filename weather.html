@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/4baef381c9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="heading">
+            <h1 style="margin-left: 35%;font-size: 50px;margin-top: 3%;">wEATHER </h1>
+        </div>
+        <form class="forms">
+            <div class="inputbox">
+                <input id="csearch" required="required" type="text">
+                <span>Username</span>
+                <i></i>
+            </div>
+            <button type="button" onclick="search()" class="btn btn-success" style="margin-left: 70%;margin-top: -20%;font-size: 150%;"><i class="fa-solid fa-magnifying-glass" ></i>
+            </button>
+        </form>
+        <div id="result" class="datas">
+            <div class="newimg">
+                <img src="https://i.pinimg.com/originals/e7/7a/60/e77a6068aa8bb2731e3b6d835c09c84c.gif" alt="">
+            </div>
+
+        </div>
+        <div id="result1" class="datas2">
+            
+              
+        </div>
+
+    </div>
+
+    <style>
+        body{
+            background-image: url('https://cdn.britannica.com/74/182174-050-6755AB49/balloon-sky.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            
+            background-attachment: fixed;
+        
+           
+           
+        }
+   
+        .newimg img{
+          width: 10%;
+          margin-top: -70%;
+          border-radius: 100%;
+          
+        }
+        h1{
+            color: white;
+        }
+        .forms{
+            margin-left: 5%;
+            size: 30px;
+            margin-top: 200px;
+        }
+        input{
+            font-size: 34px;
+            border-radius: 50px; 
+        background-color:  transparent; 
+
+        
+        }
+        .datas{
+            margin-top: 420px;
+        }
+        .datas2{
+            margin-left: 1500px;
+            margin-top: -680px;
+          
+            
+        }
+        .card{
+            width: 600px;
+            height: 700px;
+            background-color:  rgba(0, 0, 0, 0.5);
+            color: white;
+            
+        }
+        h4{
+            color: white;
+        }.inputbox {
+  position: relative;
+  width: 196px;
+}
+
+.inputbox input {
+  position: relative;
+  width: 100%;
+  margin-top: 5px;
+  padding: 20px 10px 10px;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  color: #23242a;
+  font-size: 1em;
+  letter-spacing: 0.08em;
+  transition: 0.5s;
+  z-index: 10;
+}
+
+.inputbox span {
+  position: absolute;
+  left: 0;
+  padding: 20px 10px 10px;
+  font-size: 1em;
+  color: #8f8f8f;
+  letter-spacing: 00.05em;
+  transition: 0.5s;
+  pointer-events: none;
+}
+
+.inputbox input:valid ~span,
+.inputbox input:focus ~span {
+  color: #45f3ff;
+  transform: translateX(-10px) translateY(-34px);
+  font-size: 0,75em;
+}
+
+.inputbox i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #45f3ff;
+  border-radius: 4px;
+  transition: 0.5s;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.inputbox input:valid ~i,
+.inputbox input:focus ~i {
+  height: 44px;
+}
+.forms{
+    background-color: rgba(0, 0, 0, 0.5); 
+    width: 300px;
+    height: 100px;
+}
+@media only screen and (max-width: 600px){
+    .forms{
+    background-color: rgba(0, 0, 0, 0.5); 
+    width: 300px;
+    height: 100px;
+}
+.datas{
+            margin-top: 30%;
+            background-color:  rgba(0, 0, 0, 0.5);
+            width: 100%;
+            
+        }
+        .datas2{
+            margin-left: 10%;
+            margin-top: 10%;
+            width: 10%;
+            height: 100px;
+            height: 200px;
+          
+            
+        }
+        .newimg img{
+          width: 30%;
+          margin-top: -240%;
+          border-radius: 100%;
+         
+          
+        }
+     /* h5{
+        font-size: 3%;
+     } */
+
+
+}
+
+    
+      
+    </style>
+    
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script>
+    function search(){
+        cityid=csearch.value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityid}&appid=8ac5c4d57ba6a4b3dfcf622700447b1e`)
+        .then(data=>{
+            data.json()
+            .then(output=>{
+                console.log(output);
+                displaydata(output)
+            })
+        })
+    }
+    function displaydata(output){
+        // for(data in output){
+            let weathers=output.name
+            let cloud=output['main'].feels_like
+            let temprature=Math.floor(output['main'].temp-273.15)
+            let conry=output['sys'].country
+            let humidity=output['main'].humidity
+            let wind=output['wind'].speed
+            preassure=output['main'].pressure
+        
+            let clock=new Date()
+        html_data=`
+        <h1>${temprature}°C</h1>
+        <h1>feels like ${cloud}</h1>
+        <h1>${weathers}</h1>
+        <h4>${clock}</h4>
+       
+   
+        
+        
+        `
+        html2_data=`
+        <div class="card border-success">
+                <div class="card-header bg-transparent border-danger">Weather Details</div>
+                
+                <div class="card-body text">
+                    <div class="card-header bg-transparent border-danger">Country</div>
+                  <h5 class="card-title">${conry}</h5><br><br>
+                  <div class="card-header bg-transparent border-danger">Humidity</div>
+                  <h5 class="card-title">${humidity}%</h5><br><br>
+                  <div class="card-header bg-transparent border-danger">Wind</div>
+                  <h5 class="card-title">${wind}KMPH</h5><br><br>
+                  <div class="card-header bg-transparent border-danger">preassure</div>
+                  <h5 class="card-title">${preassure}</h5><br><br>
+                
+             
+        
+        `
+        result.innerHTML=html_data
+        result1.innerHTML=html2_data
+
+        
+
+       
+            
+           
+
+        
+       
+        
+        
+       
+
+    }
+</script>
+</html>
